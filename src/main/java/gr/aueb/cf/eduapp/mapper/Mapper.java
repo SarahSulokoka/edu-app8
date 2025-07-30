@@ -15,25 +15,25 @@ public class Mapper {
     private final PasswordEncoder passwordEncoder;
 
     public TeacherReadOnlyDTO mapToTeacherReadOnlyDTO(Teacher teacher) {
-        TeacherReadOnlyDTO dto = new TeacherReadOnlyDTO();
-        dto.setId(teacher.getId());
-        dto.setUuid(teacher.getUuid());
-        dto.setIsActive(teacher.getIsActive());
+        TeacherReadOnlyDTO teacherReadOnlyDTO = new TeacherReadOnlyDTO();
+        teacherReadOnlyDTO.setId(teacher.getId());
+        teacherReadOnlyDTO.setUuid(teacher.getUuid());
+        teacherReadOnlyDTO.setIsActive(teacher.getIsActive());
 
         // Map User to UserReadOnlyDTO
         UserReadOnlyDTO userDTO = new UserReadOnlyDTO();
         userDTO.setFirstname(teacher.getUser().getFirstname());
         userDTO.setLastname(teacher.getUser().getLastname());
         userDTO.setVat(teacher.getUser().getVat());
-        dto.setUser(userDTO);
+        teacherReadOnlyDTO.setUserReadOnlyDTO(userDTO);
 
         // Map PersonalInfo to PersonalInfoReadOnlyDTO
         PersonalInfoReadOnlyDTO personalInfoDTO = new PersonalInfoReadOnlyDTO();
         personalInfoDTO.setAmka(teacher.getPersonalInfo().getAmka());
         personalInfoDTO.setIdentityNumber(teacher.getPersonalInfo().getIdentityNumber());
-        dto.setPersonalInfo(personalInfoDTO);
+        teacherReadOnlyDTO.setPersonalInfoReadOnlyDTO(personalInfoDTO);
 
-        return dto;
+        return teacherReadOnlyDTO;
     }
 
 
@@ -42,7 +42,7 @@ public class Mapper {
         teacher.setIsActive(dto.isActive());
 
         // Map fields from UserDTO
-        UserInsertDTO userDTO = dto.user();
+        UserInsertDTO userDTO = dto.userInsertDTO();
         User user = new User();
         user.setFirstname(userDTO.firstname());
         user.setLastname(userDTO.lastname());
@@ -60,7 +60,7 @@ public class Mapper {
         teacher.setUser(user);  // Set User entity to Teacher
 
         // Map fields from PersonalInfoDTO
-        PersonalInfoInsertDTO personalInfoDTO = dto.personalInfo();
+        PersonalInfoInsertDTO personalInfoDTO = dto.personalInfoInsertDTO();
         PersonalInfo personalInfo = new PersonalInfo();
         personalInfo.setAmka(personalInfoDTO.amka());
         personalInfo.setIdentityNumber(personalInfoDTO.identityNumber());
