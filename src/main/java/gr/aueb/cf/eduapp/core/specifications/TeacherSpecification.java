@@ -3,16 +3,18 @@ package gr.aueb.cf.eduapp.core.specifications;
 import gr.aueb.cf.eduapp.model.PersonalInfo;
 import gr.aueb.cf.eduapp.model.Teacher;
 import gr.aueb.cf.eduapp.model.User;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Join;
 import org.springframework.data.jpa.domain.Specification;
 
+// Utility Class
 public class TeacherSpecification {
 
     private TeacherSpecification() {
 
     }
 
-    public static Specification<Teacher> teacherUserVatis(String vat) {
+    public static Specification<Teacher> teacherUserVatIs(String  vat) {
         return ((root, query, criteriaBuilder) -> {
             if (vat == null || vat.isBlank())
                 return criteriaBuilder.isTrue(criteriaBuilder.literal(true));
@@ -34,6 +36,7 @@ public class TeacherSpecification {
             return builder.equal(user.get("isActive"), isActive);
         };
     }
+
     public static Specification<Teacher> trPersonalInfoAmkaIs(String amka) {
         return (root, query, builder) -> {
             // If AMKA is null or blank, return a condition that is always true
@@ -46,6 +49,13 @@ public class TeacherSpecification {
 
             // Return the condition where the personalInfo's AMKA matches the input AMKA
             return builder.equal(personalInfo.get("amka"), amka);
+        };
+    }
+
+    public static Specification<Teacher> trStringFieldLike(String field, String value) {
+        return (root, query, builder) -> {
+            if (value == null || value.trim().isEmpty()) return builder.isTrue(builder.literal(true));
+            return builder.like(builder.upper(root.get(field)), "%" + value.toUpperCase() + "%");
         };
     }
 }

@@ -2,6 +2,8 @@ package gr.aueb.cf.eduapp.service;
 
 import gr.aueb.cf.eduapp.core.exceptions.AppObjectAlreadyExists;
 import gr.aueb.cf.eduapp.core.exceptions.AppObjectInvalidArgumentException;
+import gr.aueb.cf.eduapp.core.filters.Paginated;
+import gr.aueb.cf.eduapp.core.filters.TeacherFilters;
 import gr.aueb.cf.eduapp.dto.TeacherInsertDTO;
 import gr.aueb.cf.eduapp.dto.TeacherReadOnlyDTO;
 import org.springframework.data.domain.Page;
@@ -15,4 +17,6 @@ public interface ITeacherService {
             throws AppObjectAlreadyExists, AppObjectInvalidArgumentException, IOException;
 
         Page<TeacherReadOnlyDTO> getPaginatedTeachers(int page, int size);
+
+     Paginated<TeacherReadOnlyDTO> getTeachersFilteredPaginated(TeacherFilters teacherFilters);
 }
