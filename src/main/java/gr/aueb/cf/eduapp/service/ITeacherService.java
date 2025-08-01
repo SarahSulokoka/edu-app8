@@ -16,7 +16,8 @@ public interface ITeacherService {
     TeacherReadOnlyDTO saveTeacher(TeacherInsertDTO teacherInsertDTO, MultipartFile amkaFile)
             throws AppObjectAlreadyExists, AppObjectInvalidArgumentException, IOException;
 
-        Page<TeacherReadOnlyDTO> getPaginatedTeachers(int page, int size);
+    Page<TeacherReadOnlyDTO> getPaginatedTeachers(int page, int size);
 
-     Paginated<TeacherReadOnlyDTO> getTeachersFilteredPaginated(TeacherFilters teacherFilters);
+
+    Paginated<TeacherReadOnlyDTO> getTeachersFilteredPaginated(TeacherFilters teacherFilters);
 }
